@@ -18,7 +18,7 @@ const triceratops = new Dino(
     "herbavor",
     "North America",
     "Late Cretaceous",
-    "First discovered in 1889 by Othniel Charles Marsh",
+    ["First discovered in 1889 by Othniel Charles Marsh"],
     "images/triceratops.png"
 );
 const tyrannosaurusRex = new Dino(
@@ -28,7 +28,7 @@ const tyrannosaurusRex = new Dino(
     "carnivor",
     "North America",
     "Late Cretaceous",
-    "The largest known skull measures in at 5 feet long.",
+    ["The largest known skull measures in at 5 feet long."],
     "images/tyrannosaurus rex.png"
 );
 const anklyosaurus = new Dino(
@@ -38,7 +38,7 @@ const anklyosaurus = new Dino(
     "herbavor",
     "North America",
     "Late Cretaceous",
-    "Anklyosaurus survived for approximately 135 million years.",
+    ["Anklyosaurus survived for approximately 135 million years."],
     "images/anklyosaurus.png"
 );
 const brachiosaurus = new Dino(
@@ -48,7 +48,7 @@ const brachiosaurus = new Dino(
     "herbavor",
     "North America",
     "Late Jurasic",
-    "An asteroid was named 9954 Brachiosaurus in 1991.",
+    ["An asteroid was named 9954 Brachiosaurus in 1991."],
     "images/brachiosaurus.png"
 );
 const stegosaurus = new Dino(
@@ -58,7 +58,7 @@ const stegosaurus = new Dino(
     "herbavor",
     "North America, Europe, Asia",
     "Late Jurasic to Early Cretaceous",
-    "The Stegosaurus had between 17 and 22 seperate places and flat spines.",
+    ["The Stegosaurus had between 17 and 22 seperate places and flat spines."],
     "images/stegosaurus.png"
 );
 const elasmosaurus = new Dino(
@@ -68,7 +68,7 @@ const elasmosaurus = new Dino(
     "carnivor",
     "North America",
     "Late Cretaceous",
-    "Elasmosaurus was a marine reptile first discovered in Kansas.",
+    ["Elasmosaurus was a marine reptile first discovered in Kansas."],
     "images/elasmosaurus.png"
 );
 const pteranodon = new Dino(
@@ -78,7 +78,7 @@ const pteranodon = new Dino(
     "carnivor",
     "North America",
     "Late Cretaceous",
-    "Actually a flying reptile, the Pteranodon is not a dinosaur.",
+    ["Actually a flying reptile, the Pteranodon is not a dinosaur."],
     "images/pteranodon.png"
 );
 const pigeon = new Dino(
@@ -88,7 +88,7 @@ const pigeon = new Dino(
     "herbavor",
     "World Wide",
     "Holocene",
-    "All birds are living dinosaurs.",
+    ["All birds are living dinosaurs."],
     "images/pigeon.png"
 );
 // Create Human Object
@@ -101,9 +101,9 @@ let human;
 compareHeight = (dino) => {
     if (dino.species !== human.species) {
         if (human.height > dino.height) {
-            dino.fact = dino.fact + `, ${human.species} is taller than ${dino.species}`;
+            dino.fact.push(`${human.species} is taller than ${dino.species}`);
         } else {
-            dino.fact = dino.fact + `, ${human.species} is shorter than ${dino.species}`;
+            dino.fact.push(`${human.species} is shorter than ${dino.species}`);
         }
     }
 };
@@ -113,9 +113,9 @@ compareHeight = (dino) => {
 compareWeight = (dino) => {
     if (dino.species !== human.species) {
         if (human.weight > dino.weight) {
-            dino.fact = dino.fact + `, ${human.species} is heavier than ${dino.species}`;
+            dino.fact.push(`${human.species} is heavier than ${dino.species}`);
         } else {
-            dino.fact = dino.fact + `, ${human.species} is lighter than ${dino.species}`;
+            dino.fact.push(`${human.species} is lighter than ${dino.species}`);
         }
     }
 };
@@ -124,9 +124,9 @@ compareWeight = (dino) => {
 compareDiet = (dino) => {
     if (dino.species !== human.species) {
         if (human.diet === dino.diet) {
-            dino.fact = dino.fact + `, ${human.species}'s diet is same as ${dino.species}`;
+            dino.fact.push(`${human.species}'s diet is same as ${dino.species}`);
         } else {
-            dino.fact = dino.fact + `, ${human.species}'s diet is different from ${dino.species}`;
+            dino.fact.push(`${human.species}'s diet is different from ${dino.species}`);
         }
     }
 };
@@ -158,7 +158,7 @@ generateHTML = () => {
                     <h3>${animal.species}</h3>
                     <img src="${animal.image}" />
                     <p> 
-                        ${animal.fact}
+                        ${animal.fact.length > 0 ? animal.fact[Math.floor(Math.random() * animal.fact.length)] : ""}
                     </p>
                 </div>
                 `;
@@ -185,7 +185,7 @@ document.getElementById("btn").onclick = () => {
         document.getElementById("diet").value,
         "",
         "",
-        "",
+        [],
         "./images/human.png"
     );
     hideForm();
