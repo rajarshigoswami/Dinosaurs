@@ -9,6 +9,17 @@ function Dino(species, weight, height, diet, where, when, fact, image) {
     this.fact = fact;
     this.image = image;
 }
+// Create Dino Constructor
+function Bird(species, weight, height, diet, where, when, fact, image) {
+    this.species = species;
+    this.weight = weight;
+    this.height = height;
+    this.diet = diet;
+    this.where = where;
+    this.when = when;
+    this.fact = fact;
+    this.image = image;
+}
 
 // Create Dino Objects
 const triceratops = new Dino(
@@ -81,7 +92,7 @@ const pteranodon = new Dino(
     ["Actually a flying reptile, the Pteranodon is not a dinosaur."],
     "images/pteranodon.png"
 );
-const pigeon = new Dino(
+const pigeon = new Bird(
     "Pigeon",
     0.5,
     9,
@@ -92,7 +103,7 @@ const pigeon = new Dino(
     "images/pigeon.png"
 );
 // Create Human Object
-let human;
+let human = new Dino("", "", "", "", "", "", [""], "./images/human.png");
 
 // Use IIFE to get human data from form
 
@@ -134,11 +145,11 @@ compareDiet = (dino) => {
 
 generateList = () => {
     return [
-        human,
         triceratops,
         tyrannosaurusRex,
         anklyosaurus,
         brachiosaurus,
+        human,
         stegosaurus,
         elasmosaurus,
         pteranodon,
@@ -158,7 +169,11 @@ generateHTML = () => {
                     <h3>${animal.species}</h3>
                     <img src="${animal.image}" />
                     <p> 
-                        ${animal.fact.length > 0 ? animal.fact[Math.floor(Math.random() * animal.fact.length)] : ""}
+                        ${
+                            animal instanceof Dino
+                                ? animal.fact[Math.floor(Math.random() * animal.fact.length)]
+                                : animal.fact[0]
+                        }
                     </p>
                 </div>
                 `;
@@ -178,16 +193,10 @@ hideForm = () => {
 
 // On button click, prepare and display infographic
 document.getElementById("btn").onclick = () => {
-    human = new Dino(
-        document.getElementById("name").value,
-        document.getElementById("weight").value,
-        document.getElementById("feet").value * 12 + document.getElementById("inches").value,
-        document.getElementById("diet").value,
-        "",
-        "",
-        [],
-        "./images/human.png"
-    );
+    human.species = document.getElementById("name").value;
+    human.weight = document.getElementById("weight").value;
+    human.height = document.getElementById("feet").value * 12 + document.getElementById("inches").value;
+    human.diet = document.getElementById("diet").value;
     hideForm();
     addToDom();
 };
